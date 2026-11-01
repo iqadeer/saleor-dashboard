@@ -36,7 +36,7 @@ ENV LOCALE_CODE="${LOCALE_CODE:-EN}"
 RUN pnpm run generate:main
 RUN pnpm exec cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build
 
-FROM nginx:stable-alpine AS runner
+FROM nginx:stable-alpine3.24-slim AS runner
 WORKDIR /app
 
 ARG COMMIT_ID
@@ -55,3 +55,6 @@ LABEL \
   org.opencontainers.image.version="$PROJECT_VERSION" \
   org.opencontainers.image.authors="Saleor Commerce (https://saleor.io)" \
   org.opencontainers.image.licenses="BSD 3"
+
+  # run the command below to generate the image
+  # docker build -t admincareout/kidl:saleor-dashboard-1.0 .
